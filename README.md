@@ -1,2 +1,0 @@
-# ios_project
-
