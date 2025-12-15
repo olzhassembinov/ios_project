@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		23CAA44C2EF01DD3005ECC6C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 23CAA44B2EF01DD3005ECC6C /* Alamofire */; };
+		23CAA4512EF01DE4005ECC6C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23CAA4502EF01DE4005ECC6C /* Kingfisher */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		489157BB2EE9D644008699F2 /* StartHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StartHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23CAA4512EF01DE4005ECC6C /* Kingfisher in Frameworks */,
+				23CAA44C2EF01DD3005ECC6C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = StartHub;
 			packageProductDependencies = (
+				23CAA44B2EF01DD3005ECC6C /* Alamofire */,
+				23CAA4502EF01DE4005ECC6C /* Kingfisher */,
 			);
 			productName = StartHub;
 			productReference = 489157BB2EE9D644008699F2 /* StartHub.app */;
@@ -91,7 +100,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					489157BA2EE9D644008699F2 = {
 						CreatedOnToolsVersion = 16.2;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = 489157B22EE9D644008699F2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				23CAA44A2EF01DD3005ECC6C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				23CAA44F2EF01DE4005ECC6C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 489157BC2EE9D644008699F2 /* Products */;
 			projectDirPath = "";
@@ -252,6 +265,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -308,6 +322,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -335,6 +350,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		23CAA44A2EF01DD3005ECC6C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		23CAA44F2EF01DE4005ECC6C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23CAA44B2EF01DD3005ECC6C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CAA44A2EF01DD3005ECC6C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		23CAA4502EF01DE4005ECC6C /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CAA44F2EF01DE4005ECC6C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 489157B32EE9D644008699F2 /* Project object */;
 }
