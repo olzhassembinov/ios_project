@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		23CAA44C2EF01DD3005ECC6C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 23CAA44B2EF01DD3005ECC6C /* Alamofire */; };
 		23CAA4512EF01DE4005ECC6C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23CAA4502EF01DE4005ECC6C /* Kingfisher */; };
+		489418D72EF050FA000E2701 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 489418D62EF050E1000E2701 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		489157BB2EE9D644008699F2 /* StartHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StartHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		489418D62EF050E1000E2701 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -52,6 +54,7 @@
 		489157B22EE9D644008699F2 = {
 			isa = PBXGroup;
 			children = (
+				489418D62EF050E1000E2701 /* README.md */,
 				489157BD2EE9D644008699F2 /* StartHub */,
 				489157BC2EE9D644008699F2 /* Products */,
 			);
@@ -135,6 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				489418D72EF050FA000E2701 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
