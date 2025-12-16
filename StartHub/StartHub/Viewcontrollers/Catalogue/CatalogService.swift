@@ -9,7 +9,6 @@ import Foundation
 
 final class CatalogService {
 
-    /// Загружает список проектов для каталога
     func fetchProjects(completion: @escaping (Result<[Project], NetworkError>) -> Void) {
 
         NetworkManager.shared.request(
