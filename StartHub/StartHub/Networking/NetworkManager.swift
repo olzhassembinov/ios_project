@@ -77,7 +77,7 @@ class NetworkManager {
     static let shared = NetworkManager()
     
     // MARK: - Properties
-    private let baseURL = "YOUR_BASE_URL_HERE" // TODO: Replace with your actual base URL
+    private let baseURL = "46.149.69.209" // TODO: Replace with your actual base URL
     private let session: URLSession
     
     private init() {
