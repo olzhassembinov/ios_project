@@ -35,7 +35,6 @@ final class CatalogViewController: UIViewController {
                 case .success(let projects):
                     self.items = projects.map { project in
 
-                        // ---------- AUTHOR ----------
                         let authorName: String = {
                             if let name = project.creator?.name, !name.isEmpty {
                                 return name
@@ -49,7 +48,6 @@ final class CatalogViewController: UIViewController {
                             return combined.isEmpty ? "Автор" : combined
                         }()
 
-                        // ---------- IMAGE ----------
                         let imagePath = project.images?
                             .sorted(by: { ($0.order ?? 0) < ($1.order ?? 0) })
                             .first?
@@ -125,5 +123,10 @@ extension CatalogViewController: UICollectionViewDataSource, UICollectionViewDel
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Catalogue", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "FavoritesViewController")
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
