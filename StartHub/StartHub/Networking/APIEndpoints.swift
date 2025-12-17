@@ -17,7 +17,7 @@ import Foundation
 struct APIEndpoints {
     
     // MARK: - Base
-    static let baseURL = "46.149.69.209" // TODO: Set your actual base URL
+    static let baseURL = "https://overfondly-bisymmetrical-jannette.ngrok-free.dev"
     
     // MARK: - Authentication Endpoints (PERSON 1)
     struct Auth {
