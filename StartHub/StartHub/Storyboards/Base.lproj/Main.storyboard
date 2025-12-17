@@ -19,7 +19,7 @@
                         <viewLayoutGuide key="safeArea" id="JV1-6f-WV7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="Qt5-xf-Usm"/>
+                    <tabBarItem key="tabBarItem" title="Catalogue" image="cart" catalog="system" id="Qt5-xf-Usm"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jGN-Xr-MZv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -35,7 +35,7 @@
                         <viewLayoutGuide key="safeArea" id="E0M-1b-3xv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="tgt-LG-rBp"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.crop.circle" catalog="system" id="tgt-LG-rBp"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kF6-xI-PPn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -51,7 +51,7 @@
                         <viewLayoutGuide key="safeArea" id="c7r-J1-V3E"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="dDs-Hh-Jzy"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="dDs-Hh-Jzy"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X1Q-Fo-xuR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,6 +78,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
