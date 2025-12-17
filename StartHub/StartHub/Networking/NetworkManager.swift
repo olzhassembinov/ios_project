@@ -13,6 +13,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Network Error Types
 enum NetworkError: Error {
