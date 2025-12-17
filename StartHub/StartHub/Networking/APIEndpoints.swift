@@ -17,16 +17,18 @@ import Foundation
 struct APIEndpoints {
     
     // MARK: - Base
-    static let baseURL = "46.149.69.209" // TODO: Set your actual base URL
+//    static let baseURL = "46.149.69.209" // TODO: Set your actual base URL
+//    static let baseURL = "62.171.179.1"
+    static let baseURL = "http://www.starthub.kz/api/v2"
     
     // MARK: - Authentication Endpoints (PERSON 1)
     struct Auth {
-        static let login = "/auth/login/"
-        static let register = "/auth/register/"
-        static let logout = "/auth/logout/"
-        static let refreshToken = "/auth/refresh/"
-        static let changePassword = "/auth/change-password/"
-    }
+            static let login = "/auth/login/"  // ✅ With trailing /
+            static let register = "/auth/register/"
+            static let logout = "/auth/logout/"
+            static let refreshToken = "/auth/refresh/"
+            static let changePassword = "/auth/change-password/"
+        }
     
     // MARK: - User/Profile Endpoints (PERSON 1)
     struct Profile {

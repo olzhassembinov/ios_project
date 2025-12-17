@@ -2,13 +2,7 @@
 //  NetworkManager.swift
 //  StartHub
 //
-//  Created by Олжас Сембинов on 15.12.2025.
-//
-
-//
-//  NetworkManager.swift
-//  StartHub
-//
+//  SHARED BY ALL TEAM MEMBERS
 //  This is the core networking layer that handles all API requests
 //
 
@@ -72,20 +66,67 @@ struct APIResponse<T: Codable>: Codable {
 }
 
 // MARK: - Network Manager
-class NetworkManager {
+class NetworkManager: NSObject, URLSessionTaskDelegate {
     
     // MARK: - Singleton
     static let shared = NetworkManager()
     
     // MARK: - Properties
-    private let baseURL = "46.149.69.209" // TODO: Replace with your actual base URL
-    private let session: URLSession
+    private let baseURL = "http://www.starthub.kz/api/v2" // TODO: Update with actual URL
+    private var session: URLSession!
     
-    private init() {
+    private override init() {
+        super.init()
+        
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
         configuration.timeoutIntervalForResource = 30
-        self.session = URLSession(configuration: configuration)
+        
+        self.session = URLSession(
+            configuration: configuration,
+            delegate: self,
+            delegateQueue: nil
+        )
+    }
+    
+    // MARK: - Handle Redirects
+    /// This method preserves POST method during redirects
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        willPerformHTTPRedirection response: HTTPURLResponse,
+        newRequest request: URLRequest,
+        completionHandler: @escaping (URLRequest?) -> Void
+    ) {
+        print("⚠️ REDIRECT DETECTED:")
+        print("   Status: \(response.statusCode)")
+        print("   From: \(task.originalRequest?.url?.absoluteString ?? "unknown")")
+        print("   To: \(request.url?.absoluteString ?? "unknown")")
+        print("   Original method: \(task.originalRequest?.httpMethod ?? "unknown")")
+        print("   New method: \(request.httpMethod ?? "unknown")")
+        
+        // Create new request preserving POST method and body
+        var modifiedRequest = request
+        
+        if let originalMethod = task.originalRequest?.httpMethod {
+            modifiedRequest.httpMethod = originalMethod
+            print("   ✅ Preserved method: \(originalMethod)")
+        }
+        
+        if let originalBody = task.originalRequest?.httpBody {
+            modifiedRequest.httpBody = originalBody
+            print("   ✅ Preserved body")
+        }
+        
+        // Preserve headers
+        if let originalHeaders = task.originalRequest?.allHTTPHeaderFields {
+            for (key, value) in originalHeaders {
+                modifiedRequest.setValue(value, forHTTPHeaderField: key)
+            }
+            print("   ✅ Preserved headers")
+        }
+        
+        completionHandler(modifiedRequest)
     }
     
     // MARK: - Generic Request Method
@@ -141,6 +182,12 @@ class NetworkManager {
             }
         }
         
+        // Debug print
+        print("🌐 Making request:")
+        print("   URL: \(url.absoluteString)")
+        print("   Method: \(method.rawValue)")
+        print("   Parameters: \(parameters ?? [:])")
+        
         // Make request
         let task = session.dataTask(with: request) { data, response, error in
             // Handle network error
@@ -157,6 +204,13 @@ class NetworkManager {
                     completion(.failure(.noData))
                 }
                 return
+            }
+            
+            // Debug print
+            print("📥 Response:")
+            print("   Status: \(httpResponse.statusCode)")
+            if let data = data, let jsonString = String(data: data, encoding: .utf8) {
+                print("   Body: \(jsonString)")
             }
             
             // Handle different status codes
@@ -215,6 +269,140 @@ class NetworkManager {
                 
             default:
                 // Server Error
+                if let data = data,
+                   let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
+                    DispatchQueue.main.async {
+                        completion(.failure(.serverError(
+                            errorResponse.detail ?? "Server error",
+                            errorResponse.code
+                        )))
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(.failure(.serverError("Server error", nil)))
+                    }
+                }
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func requestWithoutSnakeCaseConversion<T: Codable>(
+        endpoint: String,
+        method: HTTPMethod,
+        parameters: [String: Any]? = nil,
+        headers: [String: String]? = nil,
+        requiresAuth: Bool = false,
+        completion: @escaping (Result<T, NetworkError>) -> Void
+    ) {
+        guard let url = URL(string: baseURL + endpoint) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        headers?.forEach { key, value in
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if requiresAuth {
+            if let token = AuthManager.shared.getAccessToken() {
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            } else {
+                completion(.failure(.unauthorized))
+                return
+            }
+        }
+        
+        if let parameters = parameters {
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
+            } catch {
+                completion(.failure(.encodingError))
+                return
+            }
+        }
+        
+        print("🌐 Making request:")
+        print("   URL: \(url.absoluteString)")
+        print("   Method: \(method.rawValue)")
+        print("   Parameters: \(parameters ?? [:])")
+        
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(.unknown(error)))
+                }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                DispatchQueue.main.async {
+                    completion(.failure(.noData))
+                }
+                return
+            }
+            
+            print("📥 Response:")
+            print("   Status: \(httpResponse.statusCode)")
+            if let data = data, let jsonString = String(data: data, encoding: .utf8) {
+                print("   Body: \(jsonString)")
+            }
+            
+            switch httpResponse.statusCode {
+            case 200...299:
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        completion(.failure(.noData))
+                    }
+                    return
+                }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    // ⭐ NO snake_case conversion here
+                    let decodedData = try decoder.decode(T.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(.success(decodedData))
+                    }
+                } catch {
+                    print("Decoding error: \(error)")
+                    if let jsonString = String(data: data, encoding: .utf8) {
+                        print("Response JSON: \(jsonString)")
+                    }
+                    DispatchQueue.main.async {
+                        completion(.failure(.decodingError(error)))
+                    }
+                }
+                
+            case 401:
+                AuthManager.shared.clearTokens()
+                DispatchQueue.main.async {
+                    completion(.failure(.unauthorized))
+                }
+                
+            case 400:
+                if let data = data,
+                   let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
+                    DispatchQueue.main.async {
+                        completion(.failure(.badRequest(errorResponse.detail ?? "Bad request")))
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(.failure(.badRequest("Invalid request")))
+                    }
+                }
+                
+            case 404:
+                DispatchQueue.main.async {
+                    completion(.failure(.notFound))
+                }
+                
+            default:
                 if let data = data,
                    let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
                     DispatchQueue.main.async {
