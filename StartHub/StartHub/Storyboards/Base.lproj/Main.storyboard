@@ -9,37 +9,15 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Catalogue-->
-        <scene sceneID="BUx-Sg-YFg">
-            <objects>
-                <viewController title="Catalogue" id="GwS-Pn-Pm0" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1HD-9k-1x6">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="JV1-6f-WV7"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Catalogue" image="cart" catalog="system" id="Qt5-xf-Usm"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jGN-Xr-MZv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-668" y="474"/>
-        </scene>
         <!--Profile-->
-        <scene sceneID="v50-x8-7Bm">
+        <scene sceneID="n82-ip-KkO">
             <objects>
-                <viewController title="Profile" id="wdl-kh-ui3" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fIB-E6-gq7">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="E0M-1b-3xv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="person.crop.circle" catalog="system" id="tgt-LG-rBp"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kF6-xI-PPn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Profile" id="4W6-30-lhp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.circle" catalog="system" id="9aP-dX-3m1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jZn-Rp-W0P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="114" y="474"/>
+            <point key="canvasLocation" x="222" y="435"/>
         </scene>
         <!--Welcome-->
         <scene sceneID="9ds-Ov-s5y">
@@ -68,8 +46,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Pgd-cR-KEd" kind="relationship" relationship="viewControllers" id="oG8-3o-G5U"/>
-                        <segue destination="GwS-Pn-Pm0" kind="relationship" relationship="viewControllers" id="Yco-Cu-zEf"/>
-                        <segue destination="wdl-kh-ui3" kind="relationship" relationship="viewControllers" id="Wwd-T9-zGl"/>
+                        <segue destination="4W6-30-lhp" kind="relationship" relationship="viewControllers" id="TUy-Ly-z7D"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kTM-fH-oDQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -78,9 +55,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cart" catalog="system" width="128" height="102"/>
         <image name="house" catalog="system" width="128" height="104"/>
-        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
+        <image name="person.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
