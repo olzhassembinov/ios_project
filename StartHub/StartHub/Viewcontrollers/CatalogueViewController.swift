@@ -57,7 +57,6 @@ class CatalogueViewController: UIViewController {
     
     // MARK: - Load Projects
     private func loadProjects() {
-        // Show loading
         activityIndicator.startAnimating()
         emptyStateLabel.isHidden = true
         
@@ -69,6 +68,10 @@ class CatalogueViewController: UIViewController {
             
             switch result {
             case .success(let response):
+                print("✅ Projects response received")
+                print("   Count: \(response.count ?? 0)")
+                print("   Results: \(response.results.count)")
+                
                 self.projects = response.results
                 self.filteredProjects = response.results
                 
@@ -81,11 +84,13 @@ class CatalogueViewController: UIViewController {
                 
             case .failure(let error):
                 print("❌ Failed to load projects: \(error.localizedDescription)")
-                self.showErrorAlert(message: error.localizedDescription)
+                
+                // Show the actual error message
+                let errorMessage = error.localizedDescription
+                self.showErrorAlert(message: errorMessage)
             }
         }
     }
-    
     @objc private func refreshProjects() {
         loadProjects()
     }
